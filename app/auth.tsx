@@ -40,7 +40,6 @@ export default function AuthScreen() {
       : await signUp(email.trim(), password);
 
     if (success) {
-      // Navigate immediately — don't wait for a reactive observer
       router.replace('/(tabs)' as any);
     }
   };
@@ -56,7 +55,6 @@ export default function AuthScreen() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* Header */}
           <View style={styles.header}>
             <ThemedText type="title" style={styles.title}>
               {isSignIn ? 'Welcome Back' : 'Create Account'}
@@ -68,7 +66,6 @@ export default function AuthScreen() {
             </ThemedText>
           </View>
 
-          {/* Form */}
           <View style={styles.form}>
             <AuthInput
               label="Email"
@@ -91,14 +88,12 @@ export default function AuthScreen() {
               editable={!loading}
             />
 
-            {/* Error message */}
             {error ? (
               <ThemedText style={[styles.error, { color: errorColor }]}>
                 {error}
               </ThemedText>
             ) : null}
 
-            {/* Primary action */}
             <AuthButton
               title={isSignIn ? 'Sign In' : 'Sign Up'}
               onPress={handleSubmit}
@@ -107,7 +102,6 @@ export default function AuthScreen() {
               variant="primary"
             />
 
-            {/* Toggle mode */}
             <AuthButton
               title={isSignIn ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
               onPress={handleToggleMode}

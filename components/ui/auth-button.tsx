@@ -17,7 +17,7 @@ export function AuthButton({
   disabled = false,
   variant = 'primary',
 }: AuthButtonProps) {
-  const tint = useThemeColor({}, 'tint');
+  const tint = useThemeColor({}, 'primary');
   const isDisabled = disabled || loading;
 
   return (

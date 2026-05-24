@@ -13,6 +13,7 @@ export const Colors = {
     tabIconSelected: tintColorLight,
     error: '#dc2626',
     inputBorder: '#D1D5DB',
+    primary: '#0a7ea4',
   },
   dark: {
     text: '#ECEDEE',
@@ -23,18 +24,15 @@ export const Colors = {
     tabIconSelected: tintColorDark,
     error: '#dc2626',
     inputBorder: '#374151',
+    primary: '#0a7ea4',
   },
 };
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {

@@ -1,19 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { AuthButton } from '@/components/ui/auth-button';
 import { useAuth } from '@/hooks/use-auth';
 
 export default function HomeScreen() {
-  const { session, signOut, loading } = useAuth();
-  const router = useRouter();
-
-  const handleSignOut = async () => {
-    await signOut();
-    router.replace('/auth');
-  };
+  const { session } = useAuth();
 
   return (
     <ThemedView style={styles.container}>
@@ -25,16 +17,9 @@ export default function HomeScreen() {
         {session?.user.email}
       </ThemedText>
 
-      <ThemedText type="default" style={styles.message}>
+      <ThemedText type="default">
         You're signed in! 🎉
       </ThemedText>
-
-      <AuthButton
-        title="Sign Out"
-        onPress={handleSignOut}
-        loading={loading}
-        variant="ghost"
-      />
     </ThemedView>
   );
 }
@@ -51,8 +36,5 @@ const styles = StyleSheet.create({
   },
   email: {
     marginBottom: 8,
-  },
-  message: {
-    marginBottom: 32,
   },
 });

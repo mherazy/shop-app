@@ -8,12 +8,10 @@ export function useAuth() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch the initial session from AsyncStorage
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
 
-    // Subscribe to auth state changes (sign in, sign out, token refresh, etc.)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -41,9 +39,6 @@ export function useAuth() {
       setLoading(false);
       return false;
     }
-    // If email confirmation is disabled, signUp returns a session immediately.
-    // If it doesn't (some Supabase configs), sign in right away so the user
-    // lands in the app without needing to re-authenticate.
     if (!data.session) {
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
