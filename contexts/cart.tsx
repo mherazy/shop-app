@@ -31,7 +31,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         try {
           setItems(JSON.parse(raw) as CartItem[]);
         } catch {
-          // corrupted data — start fresh
+          // corrupted data - start fresh
         }
       }
     });

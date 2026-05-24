@@ -15,6 +15,7 @@ import { ThemedView } from '@/components/themed-view';
 import { SearchBar } from '@/components/ui/search-bar';
 import { CategoryFilter } from '@/components/ui/category-filter';
 import { ProductCard } from '@/components/ui/product-card';
+import { StatusBanner } from '@/components/ui/status-banner';
 import { useProducts } from '@/hooks/use-products';
 import { useCategories } from '@/hooks/use-categories';
 import { useThemeColor } from '@/hooks/use-theme-color';
@@ -32,7 +33,7 @@ export default function HomeScreen() {
     return () => clearTimeout(t);
   }, [searchText]);
 
-  const { products, loading, refreshing, hasMore, loadMore, refresh } =
+  const { products, loading, refreshing, hasMore, loadMore, refresh, isOnline, isLowBattery } =
     useProducts(debouncedSearch, activeCategory);
   const { categories } = useCategories();
 
@@ -73,6 +74,8 @@ export default function HomeScreen() {
           onSelect={setActiveCategory}
         />
       </View>
+
+      <StatusBanner isOnline={isOnline} isLowBattery={isLowBattery} />
 
       {loading && products.length === 0 ? (
         <View style={styles.center}>

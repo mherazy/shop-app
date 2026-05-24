@@ -26,7 +26,7 @@ type CurrencyContextType = {
 };
 
 const STORAGE_KEY = '@shop_app/currency';
-const DEFAULT_CURRENCY = 'USD';
+const DEFAULT_CURRENCY = 'EGP';
 
 const CurrencyContext = createContext<CurrencyContextType | null>(null);
 

@@ -22,7 +22,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         try {
           setItems(JSON.parse(raw) as Product[]);
         } catch {
-          // corrupted data — start fresh
+          // corrupted data - start fresh
         }
       }
     });
