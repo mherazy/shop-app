@@ -22,6 +22,7 @@ import { useFormatPrice } from '@/hooks/use-format-price';
 import { useCurrency } from '@/contexts/currency';
 import { shareInvoice } from '@/utils/generate-invoice';
 import { type Order } from '@/hooks/use-orders';
+import * as Notifications from 'expo-notifications';
 
 export default function CheckoutScreen() {
   const { items, totalPrice, clearCart } = useCart();
@@ -127,6 +128,14 @@ export default function CheckoutScreen() {
       'Your order has been placed successfully. We will contact you shortly.'
     );
     shareInvoice(insertedOrder as Order, currency).catch(() => {});
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Order Confirmed!',
+        body: `Order #${(insertedOrder as Order).id.slice(0, 8).toUpperCase()} is confirmed. Tap to view your order history.`,
+        data: { screen: 'orders' },
+      },
+      trigger: null,
+    }).catch(() => {});
   };
 
   return (

@@ -6,9 +6,13 @@ import { CartProvider } from '@/contexts/cart';
 import { CurrencyProvider } from '@/contexts/currency';
 import { WishlistProvider } from '@/contexts/wishlist';
 import { ThemePreferenceProvider, useThemePreference } from '@/contexts/theme-preference';
+import { usePushNotifications } from '@/hooks/use-push-notifications';
+import { useStockNotifications } from '@/hooks/use-stock-notifications';
 
 function ThemedLayout() {
   const { effectiveScheme } = useThemePreference();
+  usePushNotifications();
+  useStockNotifications();
 
   return (
     <ThemeProvider value={effectiveScheme === 'dark' ? DarkTheme : DefaultTheme}>
