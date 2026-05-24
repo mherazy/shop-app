@@ -27,7 +27,13 @@
         "googleMaps": {
           "apiKey": "AIzaSyDglYoai50I7nd4DMxxzMWUBQPO5VPHxYE"
         }
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "output": "static",
@@ -70,6 +76,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "c257036c-e064-435a-bbfe-1e3fd3a859a2"
+      }
+    },
+    "owner": "mherazy"
   }
 }
