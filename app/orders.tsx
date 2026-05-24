@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -8,6 +8,8 @@ import { ThemedView } from '@/components/themed-view';
 import { useOrders, type Order } from '@/hooks/use-orders';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { useFormatPrice } from '@/hooks/use-format-price';
+import { useCurrency } from '@/contexts/currency';
+import { shareInvoice } from '@/utils/generate-invoice';
 
 const fallbackImage = require('@/assets/images/icon.png');
 
@@ -36,6 +38,7 @@ function StatusBadge({ status }: { status: string }) {
 
 function OrderCard({ order }: { order: Order }) {
   const formatPrice = useFormatPrice();
+  const { currency } = useCurrency();
   const borderColor = useThemeColor({}, 'inputBorder');
   const iconColor = useThemeColor({}, 'icon');
   const primary = useThemeColor({}, 'primary');
@@ -98,6 +101,13 @@ function OrderCard({ order }: { order: Order }) {
             {formatPrice(order.total)}
           </ThemedText>
         </View>
+        <Pressable
+          style={({ pressed }) => [styles.invoiceBtn, { borderColor: primary, opacity: pressed ? 0.6 : 1 }]}
+          onPress={() => shareInvoice(order, currency).catch(() => {})}
+        >
+          <Ionicons name="document-text-outline" size={14} color={primary} />
+          <ThemedText style={[styles.invoiceBtnText, { color: primary }]}>Invoice</ThemedText>
+        </Pressable>
       </View>
     </View>
   );
@@ -259,6 +269,21 @@ const styles = StyleSheet.create({
   },
   totalValue: {
     fontSize: 16,
+  },
+  invoiceBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginTop: 2,
+  },
+  invoiceBtnText: {
+    fontSize: 13,
+    fontWeight: '600',
   },
   empty: {
     flex: 1,

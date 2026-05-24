@@ -19,6 +19,9 @@ import { useCart } from '@/hooks/use-cart';
 import { useThemeColor } from '@/hooks/use-theme-color';
 import { supabase } from '@/utils/supabase';
 import { useFormatPrice } from '@/hooks/use-format-price';
+import { useCurrency } from '@/contexts/currency';
+import { shareInvoice } from '@/utils/generate-invoice';
+import { type Order } from '@/hooks/use-orders';
 
 export default function CheckoutScreen() {
   const { items, totalPrice, clearCart } = useCart();
@@ -28,6 +31,7 @@ export default function CheckoutScreen() {
   const [error, setError] = useState<string | null>(null);
 
   const formatPrice = useFormatPrice();
+  const { currency } = useCurrency();
   const primary = useThemeColor({}, 'primary');
   const backgroundColor = useThemeColor({}, 'background');
   const borderColor = useThemeColor({}, 'inputBorder');
@@ -97,14 +101,18 @@ export default function CheckoutScreen() {
       imageUrl: item.product.image_url,
     }));
 
-    const { error: orderError } = await supabase.from('orders').insert({
-      user_id: userId,
-      items: orderItems,
-      total: parseFloat(totalPrice.toFixed(2)),
-      delivery_address: address.trim(),
-      notes: notes.trim() || null,
-      status: 'pending',
-    });
+    const { data: insertedOrder, error: orderError } = await supabase
+      .from('orders')
+      .insert({
+        user_id: userId,
+        items: orderItems,
+        total: parseFloat(totalPrice.toFixed(2)),
+        delivery_address: address.trim(),
+        notes: notes.trim() || null,
+        status: 'pending',
+      })
+      .select()
+      .single();
 
     if (orderError) {
       setError('Failed to place order. Please try again.');
@@ -118,6 +126,7 @@ export default function CheckoutScreen() {
       'Order Placed!',
       'Your order has been placed successfully. We will contact you shortly.'
     );
+    shareInvoice(insertedOrder as Order, currency).catch(() => {});
   };
 
   return (
