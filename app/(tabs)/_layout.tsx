@@ -3,9 +3,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { Colors } from '@/constants/theme';
 import { useThemePreference } from '@/contexts/theme-preference';
+import { useCart } from '@/hooks/use-cart';
 
 export default function TabLayout() {
   const { effectiveScheme } = useThemePreference();
+  const { totalItems } = useCart();
 
   return (
     <Tabs
@@ -30,6 +32,16 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle" size={size} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: 'Cart',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="cart-outline" size={size} color={color} />
+          ),
+          tabBarBadge: totalItems > 0 ? totalItems : undefined,
         }}
       />
       <Tabs.Screen

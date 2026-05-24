@@ -64,7 +64,8 @@
         {
           "locationWhenInUsePermission": "Allow shop-app to use your location to find nearby stores."
         }
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true,
