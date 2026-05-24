@@ -7,6 +7,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
@@ -34,6 +35,12 @@ export default function HomeScreen() {
   const { products, loading, refreshing, hasMore, loadMore, refresh } =
     useProducts(debouncedSearch, activeCategory);
   const { categories } = useCategories();
+
+  useFocusEffect(
+    useCallback(() => {
+      refresh();
+    }, [])
+  );
 
   const renderFooter = useCallback(() => {
     if (!hasMore || products.length === 0) return null;

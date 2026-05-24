@@ -38,6 +38,18 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow shop-app to use the camera to scan barcodes."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow shop-app to access your photos to set a product image."
+        }
       ]
     ],
     "experiments": {
