@@ -9,7 +9,10 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "YOUR_GOOGLE_MAPS_API_KEY"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +22,12 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDglYoai50I7nd4DMxxzMWUBQPO5VPHxYE"
+        }
+      }
     },
     "web": {
       "output": "static",
@@ -49,6 +57,12 @@
         "expo-image-picker",
         {
           "photosPermission": "Allow shop-app to access your photos to set a product image."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow shop-app to use your location to find nearby stores."
         }
       ]
     ],
